@@ -3,13 +3,18 @@ package scihub_test
 import (
 	"testing"
 
-	"github.com/satslab/snt/pkg/scihub"
+	"github.com/satslab/snt/pkg/client/scihub"
 )
 
-func TestSearchWithoutParams(t *testing.T) {
-	s := scihub.NewSearcher("user", "pwd")
+func TestNewSearchClient(t *testing.T) {
+	s := scihub.NewSearchClient("user", "pwd")
 
 	if s == nil {
 		t.Error("error while initializing search client")
+	}
+
+	expUrlStr := "https://scihub.copernicus.eu/apihub/search"
+	if s.URL().String() != expUrlStr {
+		t.Error("error building the base URL")
 	}
 }

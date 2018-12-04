@@ -3,11 +3,17 @@ package scihub_test
 import (
 	"testing"
 
+	"github.com/satslab/snt/pkg/client"
 	"github.com/satslab/snt/pkg/client/scihub"
 )
 
 func TestNewSearchClient(t *testing.T) {
-	s := scihub.NewSearchClient("user", "pwd")
+	a := client.BasicAuth{
+		Username: "user",
+		Password: "pwd",
+	}
+
+	s := scihub.NewSearchClient(a)
 
 	if s == nil {
 		t.Error("error while initializing search client")

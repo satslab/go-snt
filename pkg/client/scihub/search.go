@@ -2,8 +2,11 @@ package scihub
 
 import (
 	"fmt"
+	"net/http"
 	"net/url"
 	"strings"
+
+	"github.com/satslab/snt/pkg/client"
 )
 
 const (
@@ -14,17 +17,15 @@ const (
 )
 
 type SearchClient struct {
-	url      *url.URL
-	username string
-	password string
+	url    *url.URL
+	client *http.Client
 }
 
-func NewSearchClient(username string, password string) *SearchClient {
+func NewSearchClient(a client.Auth) *SearchClient {
 	u, _ := url.Parse(strings.Join([]string{defaultBaseURL, APIhubPath, oSearchPath}, "/"))
 	s := SearchClient{
-		url:      u,
-		username: username,
-		password: password,
+		url:    u,
+		client: a.Client(),
 	}
 
 	return &s
